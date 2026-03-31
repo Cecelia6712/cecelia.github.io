@@ -1,102 +1,700 @@
-# Site settings
-title: Hux Blog
-SEOTitle: 黄玄的博客 | Hux Blog
-header-img: img/home-bg.jpg
-email: huxpro@gmail.com
-description: "这里是 @Hux黄玄 的个人博客，与你一起发现更大的世界 | 要做一个有 swag 的程序员"
-keyword: "黄玄, Hux黄玄, Hux, 鬼栈, huxpro, @huxpro, 黄玄的博客, Hux Blog, 博客, 个人网站, 互联网, Web, JavaScript, React, React Native, 前端, 设计"
-url: "https://huangxuan.me" # your host, for absolute URL
-baseurl: "" # for example, '/blog' if your blog hosted on 'host/blog'
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="考研资料整理站 - 数学、英语、政治、专业课资料一站式导航，助你高效备考，成功上岸">
+    <title>研途集 | 考研资料整理站</title>
+    <!-- Font Awesome 6 (免费图标库) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts 提升可读性 -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-# Publish posts or collection documents with a future date.
-future: true
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: #0f172a;
+            line-height: 1.5;
+        }
 
-# SNS settings
-RSS: false
-weibo_username: huxpro
-zhihu_username: huxpro
-github_username: huxpro
-twitter_username: huxpro
-#facebook_username:  huxpro
-#linkedin_username:  firstname-lastname-idxxxx
+        /* 整体容器 */
+        .app-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
 
-# Build settings
-# from 2016, 'pygments' is unsupported on GitHub Pages. Use 'rouge' for highlighting instead.
-highlighter: rouge
-permalink: pretty
-paginate: 10
-exclude:
-  [
-    "less",
-    "node_modules",
-    "Gruntfile.js",
-    "package.json",
-    "README.md",
-    "README.zh.md",
-  ]
-anchorjs: true # if you want to customize anchor. check out line:181 of `post.html`
-# If you have timezone issue (e.g. #68) in China, uncomment to use this:
-#timezone: CN
+        /* 两栏布局 (PC端) */
+        .two-columns {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
 
-# Gems
-# from PR#40, to support local preview for Jekyll 3.0
-# make sure you have this gem installed
-# `$ gem install jekyll-paginate`
-plugins: [jekyll-paginate]
+        /* ========= 侧边栏样式 ========= */
+        .sidebar {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.03), 0 2px 6px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 1.5rem;
+            transition: all 0.2s;
+            border: 1px solid #eef2f6;
+        }
 
-# Markdown settings
-# replace redcarpet to kramdown,
-# although redcarpet can auto highlight code, the lack of header-id make the catalog impossible, so I switch to kramdown
-# document: http://jekyllrb.com/docs/configuration/#kramdown
-markdown: kramdown
-kramdown:
-  input: GFM # use Github Flavored Markdown !important
-  syntax_highlighter_opts:
-    span:
-      line_numbers: false
-    block:
-      line_numbers: true
-      start_line: 1
+        .avatar-area {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
 
-# Disqus settings
-disqus_username: hux
+        .avatar-icon {
+            font-size: 3.5rem;
+            color: #3b82f6;
+            background: #eff6ff;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin: 0 auto 0.75rem;
+        }
 
-# Netease settings
-netease_comment: false
+        .site-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 0.25rem;
+        }
 
-# Analytics settings
-# Baidu Analytics
-# ba_track_id: [your track id]
+        .site-desc {
+            font-size: 0.85rem;
+            color: #475569;
+            margin-top: 0.5rem;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 0.75rem;
+        }
 
-# Google Analytics
-ga_track_id: "UA-49627206-1" # Format: UA-xxxxxx-xx
-ga_domain: huangxuan.me
+        .stat-box {
+            background: #f1f5f9;
+            border-radius: 1rem;
+            padding: 0.8rem;
+            text-align: center;
+            margin: 1.25rem 0;
+        }
 
-# Sidebar settings
-sidebar: true # whether or not using Sidebar.
-sidebar-about-description: "要做一个有 swag 的程序员 <br> React Team @ Meta"
-sidebar-avatar: https://github.com/Huxpro.png # use absolute URL, seeing it's used in both `/` and `/about/`
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #0f172a;
+            line-height: 1;
+        }
 
-# Featured Tags
-featured-tags: true # whether or not using Feature-Tags
-featured-condition-size: 1 # A tag will be featured if the size of it is more than this condition value
+        .stat-label {
+            font-size: 0.75rem;
+            color: #475569;
+            letter-spacing: 0.5px;
+        }
 
-# Progressive Web Apps
-chrome-tab-theme-color: "#000000"
-service-worker: true
+        .countdown {
+            background: linear-gradient(115deg, #fff7ed, #ffedd5);
+            border-radius: 1rem;
+            padding: 0.8rem;
+            margin: 1rem 0;
+            text-align: center;
+        }
 
-# MathJax rendering for layout:page (e.g. post preview)
-page-mathjax: false
+        .countdown p {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #b45309;
+        }
 
-# Friends
-friends:
-  [
-    { title: "乱序（Midare）", href: "http://mida.re/" },
-    { title: "Ebn Zhang", href: "https://ebnbin.dev/" },
-    { title: "Kun Qian", href: "http://kunq.me" },
-    { title: "Sherry Woo", href: "https://sherrywoo.me/" },
-    { title: "SmdCn", href: "http://blog.smdcn.net" },
-    { title: "JiyinYiyong", href: "http://tiye.me/" },
-    { title: "DHong Say", href: "http://dhong.co" },
+        .countdown .days {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #ea580c;
+        }
+
+        .category-section h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin: 1.2rem 0 0.8rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-left: 3px solid #3b82f6;
+            padding-left: 0.6rem;
+        }
+
+        .category-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .category-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f8fafc;
+            padding: 0.5rem 0.8rem;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #334155;
+        }
+
+        .category-item:hover {
+            background: #eef2ff;
+            color: #1e40af;
+        }
+
+        .category-item.active {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .category-count {
+            background: #e2e8f0;
+            border-radius: 30px;
+            padding: 0.1rem 0.5rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .category-item.active .category-count {
+            background: rgba(255,255,255,0.3);
+            color: white;
+        }
+
+        .social-links {
+            margin-top: 1.8rem;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .social-links a {
+            color: #5b6e8c;
+            transition: 0.2s;
+        }
+
+        .social-links a:hover {
+            color: #3b82f6;
+        }
+
+        /* ========= 右侧主内容 ========= */
+        .main-content {
+            min-width: 0;
+        }
+
+        .header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.8rem;
+            background: white;
+            padding: 0.8rem 1.2rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+            border: 1px solid #eef2f6;
+        }
+
+        .search-wrapper {
+            display: flex;
+            align-items: center;
+            background: #f1f5f9;
+            border-radius: 2rem;
+            padding: 0.3rem 1rem;
+            gap: 0.5rem;
+            flex: 1;
+            max-width: 320px;
+        }
+
+        .search-wrapper i {
+            color: #5b6e8c;
+        }
+
+        .search-wrapper input {
+            border: none;
+            background: transparent;
+            padding: 0.5rem 0;
+            font-size: 0.9rem;
+            width: 100%;
+            outline: none;
+        }
+
+        .reset-filter {
+            background: none;
+            border: 1px solid #cbd5e1;
+            padding: 0.4rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #1e293b;
+        }
+
+        .reset-filter:hover {
+            background: #eef2ff;
+            border-color: #3b82f6;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .material-card {
+            background: white;
+            border-radius: 1.25rem;
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            border: 1px solid #eef2f6;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .material-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 25px -12px rgba(0, 0, 0, 0.1);
+            border-color: #d9e2ef;
+        }
+
+        .card-header {
+            padding: 1rem 1rem 0 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .subject-badge {
+            background: #e0f2fe;
+            color: #0369a1;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 0.2rem 0.65rem;
+            border-radius: 30px;
+            letter-spacing: 0.3px;
+        }
+
+        .recommend-tag {
+            background: #fef3c7;
+            color: #b45309;
+            font-size: 0.65rem;
+            padding: 0.2rem 0.55rem;
+            border-radius: 30px;
+            font-weight: 600;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin: 0.8rem 1rem 0.4rem 1rem;
+            color: #0f172a;
+        }
+
+        .card-desc {
+            font-size: 0.85rem;
+            color: #475569;
+            margin: 0 1rem 1rem 1rem;
+            line-height: 1.4;
+            flex: 1;
+        }
+
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1rem 1rem 1rem;
+            border-top: 1px solid #f0f2f5;
+            margin-top: 0.2rem;
+            font-size: 0.7rem;
+            color: #62748c;
+        }
+
+        .date-info i {
+            margin-right: 4px;
+        }
+
+        .link-btn {
+            background: #eff6ff;
+            border: none;
+            padding: 0.4rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #2563eb;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .link-btn:hover {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .no-result {
+            text-align: center;
+            grid-column: 1 / -1;
+            padding: 3rem;
+            background: white;
+            border-radius: 1.5rem;
+            color: #5b6e8c;
+        }
+
+        footer {
+            margin-top: 3rem;
+            text-align: center;
+            font-size: 0.75rem;
+            color: #7c8aa0;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 2rem;
+        }
+
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            .app-container {
+                padding: 1rem;
+            }
+            .two-columns {
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
+            }
+            .sidebar {
+                position: static;
+                text-align: center;
+            }
+            .category-list {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .category-item {
+                min-width: 85px;
+                justify-content: center;
+                gap: 0.5rem;
+            }
+            .header-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .search-wrapper {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="app-container">
+    <div class="two-columns">
+        <!-- 左侧边栏 -->
+        <aside class="sidebar">
+            <div class="avatar-area">
+                <div class="avatar-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <div class="site-title">研途集</div>
+                <div class="site-desc">📚 考研资料·高效整理 | 陪你上岸</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number" id="totalMaterialsCount">0</div>
+                <div class="stat-label">份精选资料</div>
+            </div>
+            <!-- 考研倒计时模块 -->
+            <div class="countdown" id="countdownBox">
+                <p><i class="far fa-calendar-alt"></i> 距离2026考研初试</p>
+                <div class="days" id="remainingDays">--</div>
+                <p>全力以赴 · 未来可期</p>
+            </div>
+            <!-- 分类目录 -->
+            <div class="category-section">
+                <h4><i class="fas fa-folder-open"></i> 科目分类</h4>
+                <ul class="category-list" id="categoryList">
+                    <!-- 动态生成分类 -->
+                </ul>
+            </div>
+            <div class="social-links">
+                <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="#" aria-label="微博"><i class="fab fa-weibo"></i></a>
+                <a href="#" aria-label="知乎"><i class="fab fa-zhihu"></i></a>
+                <a href="#" aria-label="邮件"><i class="fas fa-envelope"></i></a>
+            </div>
+            <div class="site-desc" style="font-size: 0.7rem; margin-top: 1rem;">
+                ⚡ 资料持续更新 | 点击「获取链接」查看网盘
+            </div>
+        </aside>
+
+        <!-- 右侧主内容区 -->
+        <main class="main-content">
+            <div class="header-bar">
+                <div class="search-wrapper">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="搜索资料名称 / 关键词...">
+                </div>
+                <button class="reset-filter" id="resetFilterBtn"><i class="fas fa-undo-alt"></i> 重置筛选</button>
+            </div>
+            <div class="card-grid" id="cardsContainer">
+                <!-- 动态渲染资料卡片 -->
+                <div class="no-result">加载中...</div>
+            </div>
+        </main>
+    </div>
+    <footer>
+        <p>© 2025 研途集 · 考研资料整理站 | 资料仅作学习交流使用，链接请以官方为准</p>
+        <p style="margin-top: 6px;">✨ 做一个有 swag 的考研人 · 与你一起发现更大的世界 ✨</p>
+    </footer>
+</div>
+
+<script>
+    // ---------- 考研资料库 (静态数据，可自由增删改) ----------
+    const materialsData = [
+        { id: 1, title: "2026考研数学 张宇基础30讲", subject: "数学", description: "高数+线代+概率论三合一，考点精讲，附带课后习题详解。", date: "2025-02-10", linkUrl: "https://pan.baidu.com/s/1exampleMath", extractCode: "m4th9", recommend: true },
+        { id: 2, title: "李永乐 线性代数辅导讲义", subject: "数学", description: "线代经典扛鼎之作，题型归纳全面，适合强化阶段。", date: "2025-01-15", linkUrl: "https://pan.baidu.com/s/1linearex", extractCode: "l565y", recommend: false },
+        { id: 3, title: "考研英语 历年真题超详解 (2010-2025)", subject: "英语", description: "英语一/英语二通用，逐篇翻译，高频词汇整理。", date: "2025-03-01", linkUrl: "https://pan.baidu.com/s/1englishtest", extractCode: "eng888", recommend: true },
+        { id: 4, title: "刘晓艳 不就是长难句吗？", subject: "英语", description: "语法长难句突破，配套视频课程笔记+练习册电子版。", date: "2024-12-20", linkUrl: "https://pan.baidu.com/s/1sentences", extractCode: "cjyyds", recommend: false },
+        { id: 5, title: "肖秀荣2026 考研政治全家桶", subject: "政治", description: "精讲精练+1000题+肖八肖四，考研人必备政治套装。", date: "2025-03-18", linkUrl: "https://pan.baidu.com/s/1xiaoxiurong", extractCode: "zz1234", recommend: true },
+        { id: 6, title: "徐涛 核心考案 强化班笔记", subject: "政治", description: "黄皮书核心考案搭配思维导图，高效背诵。", date: "2025-02-25", linkUrl: "https://pan.baidu.com/s/1xutaobiji", extractCode: "xt6789", recommend: false },
+        { id: 7, title: "408计算机学科专业基础综合 王道考研复习指导", subject: "专业课-计算机", description: "数据结构+操作系统+计组+计网，四本合一，真题全覆盖。", date: "2025-01-05", linkUrl: "https://pan.baidu.com/s/1wangdao408", extractCode: "cs4080", recommend: true },
+        { id: 8, title: "天勤计算机考研 高分笔记", subject: "专业课-计算机", description: "代码与重点考点归纳，适合冲刺背诵。", date: "2024-11-10", linkUrl: "https://pan.baidu.com/s/1tianqin", extractCode: "tq2026", recommend: false },
+        { id: 9, title: "经济学考研 高鸿业《西方经济学》典型题详解", subject: "专业课-经济学", description: "宏观+微观题库，名校真题汇编。", date: "2025-02-18", linkUrl: "https://pan.baidu.com/s/1economics", extractCode: "eco666", recommend: false },
+        { id: 10, title: "考研数学 武忠祥高数强化17堂课", subject: "数学", description: "选填技巧+大题套路，提分利器。", date: "2025-03-10", linkUrl: "https://pan.baidu.com/s/1wuzhongxiang", extractCode: "wzx123", recommend: true },
+        { id: 11, title: "唐迟阅读的逻辑 高清PDF+视频", subject: "英语", description: "阅读方法论，真题逻辑拆解，快速定位。", date: "2025-01-22", linkUrl: "https://pan.baidu.com/s/1tangchi", extractCode: "tc9988", recommend: true },
+        { id: 12, title: "教育学311 凯程应试宝典", subject: "专业课-教育学", description: "中外教育史+教原+教心，框架式复习。", date: "2025-02-01", linkUrl: "https://pan.baidu.com/s/1edu311", extractCode: "kc3110", recommend: false }
+    ];
+
+    // 辅助函数：格式化日期显示
+    function formatDate(dateStr) {
+        if (!dateStr) return "近期更新";
+        const parts = dateStr.split('-');
+        if(parts.length === 3) return `${parts[0]}.${parts[1]}.${parts[2]}`;
+        return dateStr;
+    }
+
+    // 考研倒计时 (2026考研初试预计12月26日左右，取12月20日作为参考)
+    function updateCountdown() {
+        const examDate = new Date(2026, 11, 20); // 注意月份从0开始，11表示12月20日
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const diffTime = examDate - today;
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        const daysElement = document.getElementById("remainingDays");
+        if (daysElement) {
+            if (diffDays > 0) daysElement.innerText = diffDays;
+            else if (diffDays === 0) daysElement.innerText = "就是今天！";
+            else daysElement.innerText = "已开考，祝金榜题名";
+        }
+    }
+
+    // 渲染侧边栏分类 (动态统计)
+    function buildSidebarCategories(data) {
+        const categoryMap = new Map();
+        data.forEach(item => {
+            const subj = item.subject;
+            categoryMap.set(subj, (categoryMap.get(subj) || 0) + 1);
+        });
+        const categoryListEl = document.getElementById("categoryList");
+        if (!categoryListEl) return;
+        // 加入 "全部" 选项
+        let allHtml = `<li class="category-item active" data-category="all">
+                        <span>📌 全部资料</span>
+                        <span class="category-count">${data.length}</span>
+                      </li>`;
+        for (let [cat, count] of categoryMap.entries()) {
+            allHtml += `<li class="category-item" data-category="${cat}">
+                            <span>${cat}</span>
+                            <span class="category-count">${count}</span>
+                         </li>`;
+        }
+        categoryListEl.innerHTML = allHtml;
+        // 绑定点击事件
+        document.querySelectorAll('.category-item').forEach(el => {
+            el.addEventListener('click', (e) => {
+                const category = el.getAttribute('data-category');
+                // UI 激活样式
+                document.querySelectorAll('.category-item').forEach(c => c.classList.remove('active'));
+                el.classList.add('active');
+                // 触发筛选
+                currentCategory = category === 'all' ? null : category;
+                filterAndRender();
+            });
+        });
+    }
+
+    // 全局筛选变量
+    let currentCategory = null;     // null 表示全部
+    let currentKeyword = "";
+
+    // 获取筛选后的数据
+    function getFilteredData() {
+        let filtered = [...materialsData];
+        if (currentCategory) {
+            filtered = filtered.filter(item => item.subject === currentCategory);
+        }
+        if (currentKeyword.trim() !== "") {
+            const kw = currentKeyword.trim().toLowerCase();
+            filtered = filtered.filter(item => 
+                item.title.toLowerCase().includes(kw) || 
+                item.description.toLowerCase().includes(kw) ||
+                item.subject.toLowerCase().includes(kw)
+            );
+        }
+        return filtered;
+    }
+
+    // 渲染资料卡片
+    function renderCards(filteredData) {
+        const container = document.getElementById("cardsContainer");
+        if (!container) return;
+
+        if (filteredData.length === 0) {
+            container.innerHTML = `<div class="no-result"><i class="fas fa-book-open"></i> 没有找到相关资料，试试其他关键词～</div>`;
+            return;
+        }
+
+        let cardsHtml = "";
+        filteredData.forEach(item => {
+            const subjectClass = getSubjectIcon(item.subject);
+            const recommendBadge = item.recommend ? `<span class="recommend-tag"><i class="fas fa-fire"></i> 推荐</span>` : '';
+            cardsHtml += `
+                <div class="material-card" data-id="${item.id}">
+                    <div class="card-header">
+                        <span class="subject-badge">${subjectClass} ${item.subject}</span>
+                        ${recommendBadge}
+                    </div>
+                    <div class="card-title">${escapeHtml(item.title)}</div>
+                    <div class="card-desc">${escapeHtml(item.description)}</div>
+                    <div class="card-meta">
+                        <div class="date-info"><i class="far fa-calendar-alt"></i> ${formatDate(item.date)}</div>
+                        <button class="link-btn" data-link="${item.linkUrl}" data-code="${item.extractCode}" data-name="${escapeHtml(item.title)}"><i class="fas fa-download"></i> 获取链接</button>
+                    </div>
+                </div>
+            `;
+        });
+        container.innerHTML = cardsHtml;
+
+        // 绑定获取链接按钮事件
+        document.querySelectorAll('.link-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const link = btn.getAttribute('data-link');
+                const code = btn.getAttribute('data-code');
+                const name = btn.getAttribute('data-name');
+                // 弹窗展示网盘信息（便于考研资料分享）
+                if (link && code) {
+                    alert(`📁 资料：【${name}】\n🔗 网盘链接：${link}\n🔐 提取码：${code}\n\n⚠️ 请复制链接到浏览器打开，资源仅供学习使用。`);
+                } else {
+                    alert(`📖 资料：“${name}”\n链接待整理，请联系管理员添加。`);
+                }
+            });
+        });
+    }
+
+    // 简单防XSS
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        }).replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, function(c) {
+            return c;
+        });
+    }
+
+    function getSubjectIcon(subject) {
+        if (subject.includes('数学')) return '📐';
+        if (subject.includes('英语')) return '🇬🇧';
+        if (subject.includes('政治')) return '🏛️';
+        if (subject.includes('计算机')) return '💻';
+        if (subject.includes('经济学')) return '📈';
+        if (subject.includes('教育学')) return '📖';
+        return '📘';
+    }
+
+    // 统一筛选并刷新UI + 更新总数（侧边栏总数不变动，保持原始总数更直观，但原始总数显示静态资料数量）
+    function filterAndRender() {
+        const filtered = getFilteredData();
+        renderCards(filtered);
+        // 可选：高亮分类栏选中状态保持不变（已有激活样式管理）
+        // 实时更新“全部资料”旁边的动态数量？侧边栏显示的是总数(原始资料数)不变，但为了体验，侧边栏总数保留原始总资料量。
+        // 但为了更直观，右上角的统计显示全库数量，不随筛选变动（用户知道自己正在筛选）
+    }
+
+    // 监听搜索输入
+    function bindSearchEvent() {
+        const searchInput = document.getElementById("searchInput");
+        if (searchInput) {
+            searchInput.addEventListener("input", (e) => {
+                currentKeyword = e.target.value;
+                filterAndRender();
+            });
+        }
+        const resetBtn = document.getElementById("resetFilterBtn");
+        if (resetBtn) {
+            resetBtn.addEventListener("click", () => {
+                // 重置分类和搜索
+                currentCategory = null;
+                currentKeyword = "";
+                if (searchInput) searchInput.value = "";
+                // 重置侧边栏高亮至“全部”
+                const allCategoryItem = document.querySelector('.category-item[data-category="all"]');
+                if (allCategoryItem) {
+                    document.querySelectorAll('.category-item').forEach(c => c.classList.remove('active'));
+                    allCategoryItem.classList.add('active');
+                }
+                filterAndRender();
+            });
+        }
+    }
+
+    // 初始化整体UI
+    function init() {
+        // 更新总资料数量
+        const totalSpan = document.getElementById("totalMaterialsCount");
+        if (totalSpan) totalSpan.innerText = materialsData.length;
+        // 构建分类侧边栏
+        buildSidebarCategories(materialsData);
+        // 倒计时
+        updateCountdown();
+        setInterval(updateCountdown, 86400000); // 每天更新一次倒计时
+        // 初始渲染（全部）
+        currentCategory = null;
+        currentKeyword = "";
+        filterAndRender();
+        bindSearchEvent();
+    }
+
+    // 启动
+    init();
+</script>
+</body>
+</html>
     { title: "尹峰以为", href: "http://ingf.github.io/" },
   ]
